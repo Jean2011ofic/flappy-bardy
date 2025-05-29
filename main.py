@@ -13,7 +13,7 @@ pulo = False
 y_player = altura//2
 
 
-
+# 1 minuto e 30 segundos aproximadamente para ultima fase atual
 
 contador = 0
 
@@ -38,7 +38,7 @@ while True:
 
 
     relogio.tick(30)
-    tela.fill((0, 0, 0))
+    tela.fill(jogo.cor_fundo)  
 
     ponto = jogo.ponto
 
@@ -56,7 +56,7 @@ while True:
                     x_cano_1 = largula
                     vida = 1
                     y_player = altura//2
-                    ponto = 0
+                    ponto = 0 
 
     
     
@@ -82,23 +82,27 @@ while True:
 
 
 
-    if pulo:
-        forca_gravidade = -15
-        pulo = False
-    if forca_gravidade < 4:
-        forca_gravidade += 7
-    y_player += forca_gravidade
+    # if pulo:
+    #     forca_gravidade = -15
+    #     pulo = False
+    # if forca_gravidade < 4:
+    #     forca_gravidade += 7
+    # y_player += forca_gravidade
 
-    if pygame.key.get_pressed()[pygame.K_SPACE]:
-        pulo = True
+    # if pygame.key.get_pressed()[pygame.K_SPACE]:
+    #     pulo = True
             
        
-
+    y_player = jogo.gravidade(y_player)
     jogo.jogo()
+    
     if jogo.verificar_colisao(player):
         jogo_nao_comecou = True
-        jogo.iniciado = False
-        
+        jogo.iniciado = False 
+    if y_player < 0 or y_player > altura:
+        jogo_nao_comecou = True
+        jogo.iniciado = False 
+        y_player = altura//2    
 
 
     tela.blit(texto_formatado,(400,40))
